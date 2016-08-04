@@ -1,0 +1,11 @@
+Compile with
+javac DomSSEA.java
+
+Usage:
+java DomSSEA <File_prefix> <All_cut3 file>
+
+File_prefix: The path and all parts BEFORE the .horiz from a psipred .horiz file
+All_cut3: path to the All_cut3 file in the dompred data/ dir
+
+Example:
+java DomSSEA ~/Code/psipred/example/example ~/Code/dompred/data/All_cut3

@@ -1,0 +1,5 @@
+This repo contains the components for parsing a blast mtx and outputting
+dompred domain boundary predictions.
+
+Note that you need the data files available via:
+http://bioinfadmin.cs.ucl.ac.uk/downloads/dompred_data/
