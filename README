@@ -1,5 +1,6 @@
-This repo contains the components for parsing a blast mtx and outputting
-dompred domain boundary predictions.
+This repo contains the DomSSEA components for parsing a psipred .horiz filex and outputting
+dompred domain boundary predictions. And the components for make a Dompred prediction as per
+R.Marsden's work (parseDS.pl)
 
 Note that you need the data files available via:
 http://bioinfadmin.cs.ucl.ac.uk/downloads/dompred_data/
