@@ -4,3 +4,19 @@ R.Marsden's work (parseDS.pl)
 
 Note that you need the data files available via:
 http://bioinfadmin.cs.ucl.ac.uk/downloads/dompred_data/
+
+Instalation
+1) tar -zxvf dompred_data.tar.gz
+2) compile DomSSEA
+	cd src
+	javac DomSSEA.java
+
+Running a DomPRED job
+
+1) Run a psipred job and find the .horiz file
+2) Run DomSSEA
+	java DomSSEA [path and prefix to .horiz] [All_cut3 path]
+	example where you have example.horiz: 
+		java DomSSEA example /dompred/data/All_cut3
+3) Run parseDS.pl
+	parseDS.pl
