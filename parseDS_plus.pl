@@ -50,7 +50,7 @@
 #						Took out that nonsense of wrapping the blast files in <pre> tags so that they are "html"
 #						(note that .blastdom and blast.bls are identical.  blast.bls is then gzipped for passing into the
 #						rails db).
-#						Changed the output image to a 16bit png and removed the use of jpegtran. The image is now rotated 
+#						Changed the output image to a 16bit png and removed the use of jpegtran. The image is now rotated
 #						by mogrify in a single rescaling and rotating step. The png is clearer.  it might be worth
 #						playing with the rescaling filter to make the image look nicer.
 #						Added a couple of output flat files - .boundary for the DPS info
@@ -100,7 +100,7 @@ $STRUCTURE_DB  ="SCOP";
 $helix_count = 0;
 $extended_count = 0;
 $coil_count = 0;
-	
+
 
 ###
 #	get name of input sequence
@@ -148,7 +148,7 @@ open (BOUNDARYOUT, ">$OUT_DIR/$input_seq.boundary") or die "Can't create output 
 ###																  eg >/www/htdocs/domout/17_18_59_238.pred
 #	raw secondary struc output file		ACCCCCSCSSDDHHGHHSHSHSHSHAHAHAHAH
 ###																	CEEEECCCCCCCCCCCCCCCCCCCCCCCCCCCC
-open(SECSTRUC, "$OUT_DIR/$input_seq.pred") or die "can't open sec_pred $OUT_DIR $input_seq\n";
+open(SECSTRUC, "$OUT_DIR/$input_seq.pred") or die "can't open sec_pred $OUT_DIR/$input_seq.pred\n";
 my $sec_pred=<SECSTRUC>; #first line
 my $sec_pred=<SECSTRUC>; #second line
 $sec_pred=<SECSTRUC>;		 #third line
@@ -171,7 +171,7 @@ foreach $aminoacid (@sec)	#this sets up the coil, helix, beta plot for gnuplot
 	}
 ###
 #	open alpha beta percentage data and read in
-###	
+###
 open(SECSTRUC, "$DOMSSEA_HOME/2struc_ab_percent") or die;
 while ($line=<SECSTRUC>)
 	{
@@ -184,7 +184,7 @@ while ($line=<SECSTRUC>)
 close(SECSTRUC);
 ###################################
 #	Sequence profile code
-# will also plot as gnuplot 
+# will also plot as gnuplot
 ###################################
 
 #if($do_seq eq "seqyes") #need to sort this
@@ -194,7 +194,7 @@ close(SECSTRUC);
 ###
 #run sequence profile algorithm
 ###
-sub sequenceX 
+sub sequenceX
 	{
 ###
 #do secondary structure plot
@@ -209,8 +209,8 @@ sub sequenceX
 		}
 	$freq_alpha=$ares/$length;
 	$freq_beta=$bres/$length;
-	
-	&sec_struc; 
+
+	&sec_struc;
 	sub sec_struc
 		{
 		#start with 30 res window from start to end-30
@@ -237,9 +237,9 @@ sub sequenceX
 	$num_iterations=$do_its; #number of given itterations
 ###
 #	run psiblast
-###		
+###
 	#system ("$BLAST_EXEC -i  $OUT_DIR/$input_seq -j $num_iterations -a 2 -m 0 -b 1000 -d $DOMSSEA_HOME/$DATABASE_NAME  > $OUT_DIR/$input_seq.blastdom");
-	
+
 	$with_eval=1; #forgot what this is for
 	$output_blast=$input_seq .".blast";	#thats the name for the blastout html file
 	$output_blastsee=$input_seq .".blastsee";	#name for the parsed blast output data
@@ -253,7 +253,7 @@ sub sequenceX
 	$interval=1;
 ###
 #	read in blast out and parse it
-###		
+###
 	print "opening"."$OUT_DIR/$input_seq.blastdom\n";
 	open (INFIL, "$OUT_DIR/$input_seq.blastdom") or die "Cannot open $input_seq\n";
 	while ($line=<INFIL>)
@@ -275,7 +275,7 @@ sub sequenceX
 			{
 			#open (SEE, ">$OUT_DIR/$output_blastsee.html") or die "Cannot open blastsee_html\n";
 			#&printtoparsed;#start table for parsed blast
-			$curr_it=0;	
+			$curr_it=0;
 			$fragment_seen=1; #use this to stop previouse info being used
 			}
 		if(($line=~/^>(.*)/)||($line=~/Matrix: BLOSUM62/)) #next alignment, print out last if seen
@@ -297,7 +297,7 @@ sub sequenceX
 						{
 						$howmany{$iteration}++;
 						$name2=substr($name,0,35);		#name of last one seen
-						
+
 						if(length($name2)<35)
 							{
 							until (length($name2)==35)
@@ -305,7 +305,7 @@ sub sequenceX
 								$name2=$name2 . " ";
 								}
 							}
-						
+
 						if($e_value==0.0){$e_value = "1e-200";}
 						$mod_e_value=(log(1/$e_value));#/log(10); #rm if not want to log eval
 						#print SEE "<TR>\n";
@@ -319,18 +319,18 @@ sub sequenceX
 						$hitstart=shift @$querylistx;
 						$hitend=pop @$querylistx;
 						#print SEE "<TD>$startnumber</TD>\n";
-						#print SEE "<TD>$endnumber</TD>\n"; 
+						#print SEE "<TD>$endnumber</TD>\n";
 						#print SEE "<TD>$hitlength</TD>\n";
-						#print SEE "<TD>$hitstart</TD>\n";	
-						#print SEE "<TD>$hitend</TD>\n";	
+						#print SEE "<TD>$hitstart</TD>\n";
+						#print SEE "<TD>$hitend</TD>\n";
 						#print SEE "<TD>$e_value</TD>\n";
 						#print SEE "</TR>\n";
-						
+
 						print SEE "$startnumber	";
-						print SEE "$endnumber	"; 
+						print SEE "$endnumber	";
 						print SEE "$hitlength	";
-						print SEE "$hitstart	";  
-						print SEE "$hitend	";  
+						print SEE "$hitstart	";
+						print SEE "$hitend	";
 						print SEE "$e_value	";
 						print SEE "\n";
 						#print SEE "</FONT>";
@@ -340,10 +340,10 @@ sub sequenceX
 							print PFAMA "$name2	";
 							print PFAMA "$length	";
 							print PFAMA "$startnumber ";
-							print PFAMA "$endnumber "; 
+							print PFAMA "$endnumber ";
 							print PFAMA "$hitlength ";
-							print PFAMA "$hitstart  ";  
-							print PFAMA "$hitend  ";  
+							print PFAMA "$hitstart  ";
+							print PFAMA "$hitend  ";
 							print PFAMA "$e_value ";
 							print PFAMA "\n";
 							#print PFAMA "</FONT>";
@@ -354,7 +354,7 @@ sub sequenceX
 							{
 							$hash{$iteration}{$endnumber}++;#=$mod_e_value;
 							$hashC{$iteration}{$endnumber}++;
-							}	
+							}
 						if($hitstart<10)
 							{
 							$hash{$iteration}{$startnumber}++;#=$mod_e_value;
@@ -363,7 +363,7 @@ sub sequenceX
 						$hash{$iteration}{$startnumber}++;
 						$hash{$iteration}{$endnumber}++;
 						$hashN{$iteration}{$startnumber}++;
-						$hashC{$iteration}{$endnumber}++;						
+						$hashC{$iteration}{$endnumber}++;
 						@$querylist=();
 						@$querylistx=();
 						}
@@ -371,7 +371,7 @@ sub sequenceX
 				$score_see=0;
 				}
 			if($line=~/^>(.*)/) #get name of this one
-				{					
+				{
 				$name=$1;
 				if($line=~/^>(\S+)\s+PF\d+\;/)
 					{
@@ -397,7 +397,7 @@ sub sequenceX
 				$fragment_seen=0;  #reinitialise
 				}
 			}
-			
+
 		if($with_eval==1)
 			{
 				#D.Buchan: Assorted minor changes to parse the new blast+ output
@@ -410,7 +410,7 @@ sub sequenceX
 				{
 ###
 #matching more than once to query --> $score_see >1
-###					
+###
 					$score_see++;
 					$querylist="querylist" . $score_see;
 					$querylistx="querylistx" . $score_see;
@@ -428,13 +428,13 @@ sub sequenceX
 					$expecting++;
 					$e_value="1" . $1;
 					push @$querylist,$e_value;
-				}	
+				}
 				if($line=~/Expect\s+=\s+(\d+e\S+)/)
 				{
 					$expecting++;
 					$e_value=$1;
 					push @$querylist,$e_value;
-				}	
+				}
 				if($line=~/^Query\s\s+(\d+).*\s+(\d+)$/)
 				{
 					$start=$1; $end=$2;
@@ -456,10 +456,10 @@ sub sequenceX
 ###
 #	blast has been read in and parsed
 #
-#	output / calculate plot data (need to sort)	
+#	output / calculate plot data (need to sort)
 ###
 # DON'T NEED THIS AS FAR AS I CAN TELL??
-# THIS IS LIKE DONE BEFORE EVERYTHING IS FLATENED, 
+# THIS IS LIKE DONE BEFORE EVERYTHING IS FLATENED,
  $biggest_plothash=0;
  for($i=1;$i<=($length-14);$i++)
    {                             #so plot from +45 to -55
@@ -479,7 +479,7 @@ sub sequenceX
 ### KB (07/06/2004) - Extend this to +/-70aa at boundaries (plus another 10aa possibly ?).
 
 	$bigpoint=0;
-	for($i=1;$i<70;$i++)	
+	for($i=1;$i<70;$i++)
 		{
 		$hash{$iteration}{$i}=0;
 		$hashN{$iteration}{$i}=0;
@@ -489,7 +489,7 @@ sub sequenceX
 		$hash{$iteration}{$i}=0;
 		$hashC{$iteration}{$i}=0;
 		}
-	#if 'hits' on boundaries rm.... don't want to incorparate into Zscore 
+	#if 'hits' on boundaries rm.... don't want to incorparate into Zscore
 	for($yi=70;$yi<=80;$yi++) #10 or 20?
 		{
 		if($hashC{$iteration}{$yi}>0)
@@ -518,14 +518,14 @@ sub sequenceX
 			{
 			$hash{$iteration}{$yi}=0;
 			$hashC{$iteration}{$yi}=0;
-			}		
+			}
 		}
 ###
 #	smoothing window of 15 residues for N and then C hits
-###	
+###
 	for($i=1;$i<=$length-14;$i++)
 		{															#so plot from +55 to -65
-		for($j=$i;$j<($i+15);$j++)			
+		for($j=$i;$j<($i+15);$j++)
 			{
 			$smhashN{$i+7}+=$hashN{$iteration}{$j};		#get total in window -> middle res
 			}
@@ -533,7 +533,7 @@ sub sequenceX
 		}
 	for($i=1;$i<=$length-14;$i++)
 		{															#so plot from +55 to -65
-		for($j=$i;$j<($i+15);$j++)			
+		for($j=$i;$j<($i+15);$j++)
 			{
 			$smhashC{$i+7}+=$hashC{$iteration}{$j};		#get total in window -> middle res
 			}
@@ -543,13 +543,13 @@ sub sequenceX
 #check out N and C matching in above smoothed profile
 ###
 	for($i=8;$i<=$length-7;$i++) #8 cos thats where 15 window starts
-		{	
+		{
 		if(($smhashN{$i}*$smhashC{$i})==0)
-			{	
+			{
 			$smhash{$i}=$smhashN{$i}+$smhashC{$i};
 			}
 		if(($smhashN{$i}*$smhashC{$i})>0)
-			{	
+			{
 			if($smhashN{$i}>$smhashC{$i}){$extra=$smhashC{$i}/2;}
 			if($smhashC{$i}>=$smhashN{$i}){$extra=$smhashN{$i}/2;}
 			$smhash{$i}=$smhashN{$i}+$smhashC{$i}+$extra;
@@ -557,7 +557,7 @@ sub sequenceX
 		}
 ###
 #	calculate Zscores
-###	
+###
 	foreach $x (sort {$a<=>$b} keys %smhash)
 		{
 		$total_res+=$smhash{$x};
@@ -588,7 +588,7 @@ sub sequenceX
 			}
 		}
 
-###	
+###
 #	iterate over Zscored profile
 ###
 	$bigZ=$g=1.5; #Zscore of 1.5
@@ -604,8 +604,8 @@ sub sequenceX
 			if($Zseen{$x}==1){next;}		#so don't see it on next iteration
 			if($bigZpeak<$Zhash{$x}) 		#find highest peak first
 				{
-				$bigZpeak=$Zhash{$x};	
-				if($bigZpeak>$reallybig) 		
+				$bigZpeak=$Zhash{$x};
+				if($bigZpeak>$reallybig)
 					{
 					$reallybig=$bigZpeak;
 					}
@@ -631,7 +631,7 @@ sub sequenceX
 				$Zhash{$flat}=0;
 				}
 			}
-		}	
+		}
 	if($num_peaks==0)
 		{
 		}
@@ -673,7 +673,7 @@ sub sequenceX
 	#$helix_count = 0;
 	#$extended_count = 0;
 	#$coil_count = 0;
-	
+
 	sub shownorm
 	{
 
@@ -728,16 +728,16 @@ sub sequenceX
 
 	#7/4/2009  D.Buchan added some globals that track how many helix, strand or coil residues are to be plotted and if there are none that line is NOT
 	#added to the gnuplot script
-	sub gnuplot1 
+	sub gnuplot1
 	{
  		### save tmp GNUPLOT file
  		open (GNUPLOT, ">$OUT_DIR/$input_seq.gnu") or print("Couldn't save gnuplot file: $gnufile");
- 
+
  	 	print GNUPLOT ("set terminal postscript color solid \"Times-Roman\" 18\n");
 		$myps=$input_seq . "myps";
   		print GNUPLOT ("set output \"$OUT_DIR/$myps.ps\"\n");
 		#print GNUPLOT ("set yrange [0:]\n");
-		
+
 		print GNUPLOT ("set format y \"\"\n");
 		#print GNUPLOT ("set format y2 \"\"\"\n");
 
@@ -763,13 +763,13 @@ sub sequenceX
   		close(GNUPLOT);
  		$command="$GNUPLOT_EXEC $OUT_DIR/$input_seq.gnu";
   		system("$command");
-	}	
-	
-	sub gnuplot2 
+	}
+
+	sub gnuplot2
 	{
  		### save tmp GNUPLOT file
  		open (GNUPLOT, ">$OUT_DIR/$input_seq.gnu") or print("Couldn't save gnuplot file: $gnufile");
- 
+
  	 	print GNUPLOT ("set terminal postscript color solid \"Times-Roman\" 18\n");
 		$myps=$input_seq . "myps";
   		print GNUPLOT ("set output \"$OUT_DIR/$myps.ps\"\n");
@@ -778,13 +778,13 @@ sub sequenceX
   		close(GNUPLOT);
  		$command="$GNUPLOT_EXEC $OUT_DIR/$input_seq.gnu";
   		system("$command");
-	}	
-	
-	sub gnuplot3 
+	}
+
+	sub gnuplot3
 	{
  		### save tmp GNUPLOT file
  		open (GNUPLOT, ">$OUT_DIR/$input_seq.gnu") or print("Couldn't save gnuplot file: $gnufile");
- 
+
  	 	print GNUPLOT ("set terminal postscript color solid \"Times-Roman\" 18\n");
 		$myps=$input_seq . "myps";
   		print GNUPLOT ("set output \"$OUT_DIR/$myps.ps\"\n");
@@ -798,7 +798,7 @@ sub sequenceX
   		close(GNUPLOT);
  		$command="$GNUPLOT_EXEC $OUT_DIR/$input_seq.gnu";
   		system("$command");
-	}	
+	}
 ###
 #	make plot correct size / format
 ###
@@ -836,9 +836,9 @@ if(($do_secprofile eq "secprono")&&($howmany{$iteration}==0)) #ie can't show gra
 
 ###################################
 #	read in DomSSEA out put
-#	If peak_detected>0; means 
+#	If peak_detected>0; means
 #	upreg multi domssea preds.......
-#	
+#
 ###################################
 @score_array=(0,0,0,0,0,0,0,0,0,0); #initialise @score_array
 if(($peak_detected>0))#&&($length>300))	#so saying PsBlast says multi and has to be >300 residues..
@@ -856,7 +856,7 @@ if(($peak_detected>0))#&&($length>300))	#so saying PsBlast says multi and has to
 			{
 			#$target=$1;			#global?
 			$match=$1;		#matched db hit
-			$num_doms=$2;	#global?		
+			$num_doms=$2;	#global?
 			$rest=$3;			#ie all the predicted boundaries
 			$sec_align{$match}=$4;	#the 2' structure alignment of this match (could find % a and b)
 			$cant=0;			#
@@ -867,8 +867,8 @@ if(($peak_detected>0))#&&($length>300))	#so saying PsBlast says multi and has to
 			#		while($rest=~/(\d+)/g)
 			#			{
 			#			if(($1<40)||($1>($length-40)))
-			#				{				
-			#				$cant=1;			
+			#				{
+			#				$cant=1;
 			#				}
 			#			}
 			#		}
@@ -910,7 +910,7 @@ if(($peak_detected>0))#&&($length>300))	#so saying PsBlast says multi and has to
 			if($num_doms>1)
 				{
 				$count=1;
-				while($rest=~/(\d+)/g)	#still going through $rest, 
+				while($rest=~/(\d+)/g)	#still going through $rest,
 					{
 					$cut_hash{$match}{$count}=$1;	#record domain boundaries
 					$count++;
@@ -932,10 +932,10 @@ if(($peak_detected>0))#&&($length>300))	#so saying PsBlast says multi and has to
 			}
 		}
 	&showdomssea;	#outputs table of hits (together with associated links, cath codes etc)
-###	
+###
 #	IE do not output anyother DomSSEA data
 ###
-	#$peak_detected=0; 
+	#$peak_detected=0;
 	#&clearbar;	#bar thingy?
 	undef %score_hash;	#cos not benchmarking
 	undef $cut_hash;		#just showing data
@@ -969,14 +969,14 @@ if($peak_detected==0) #so PsiBlast has said single (ie no peaks detected)
 			#		while($rest=~/(\d+)/g)
 			#			{
 			#			if(($1<40)||($1>($length-40)))
-			#				{					
-			#				$cant=1;			
+			#				{
+			#				$cant=1;
 			#				}
 			#			}
 			#		}
 			#	}
 			#if($cant==1){next;}
-			
+
 			$freq_alpha_match=$alphahash{$match};
 			$freq_beta_match=$betahash{$match};
 
@@ -1010,7 +1010,7 @@ if($peak_detected==0) #so PsiBlast has said single (ie no peaks detected)
 			if($num_doms>1)
 				{
 				$count=1;
-				while($rest=~/(\d+)/g)	#still going through $rest, 
+				while($rest=~/(\d+)/g)	#still going through $rest,
 					{
 					$cut_hash{$match}{$count}=$1;	#record domain boundaries
 					$count++;
@@ -1042,22 +1042,22 @@ sub showdomssea
 	#open structure database code file and read into hash
 	open (DOMSSEATABLE, ">$OUT_DIR/$input_seq.domsseatable") or die "Can't create domssea table\n";
 	print DOMSSEATABLE "Score\tMatch\tSSEA\tNo. Doms\tBoundaries\tSCOP code\n";
-	
+
 	open (DB_CODES, "$DOMSSEA_HOME/${STRUCTURE_DB}_CODES.dat");
 	while ($line2 = <DB_CODES>)
 		{
 		if($line2=~/^(\S+)\s+(.*)/)
 			{
 			$db_code_hash{$1}=$2;	#record structure db (i.e. CATH/SCOP) codes
-			}	
+			}
 		}
 	close(DB_CODES);
 
-	@sorted=sort {$b<=>$a} @score_array;	#make sure score array is sorted 
+	@sorted=sort {$b<=>$a} @score_array;	#make sure score array is sorted
 	@score_array=@sorted;
 ###
 #	start generating html
-###	
+###
 
 	# Array is always of size 10, because entries
         # are added at position 9 ...
@@ -1072,13 +1072,13 @@ sub showdomssea
 		    {
 		    next;
 		    }
-                
+
 
 ###
 #	only one match for this score, ie this score seen only once
 ###
 
-		if($length_array==1)	
+		if($length_array==1)
 			{
 			#no $k required on this bit so changed them...
 			#$x is score
@@ -1088,10 +1088,10 @@ sub showdomssea
 			print DOMSSEATABLE $x."\t";
 			$url_code=substr(@{$x}[0],0,4);	#code to link to PDBSum
 			print DOMSSEATABLE @{$x}[0]."\t";
-	
+
 			print DOMSSEATABLE $sec_align{@{$x}[0]}."\t";
 			print DOMSSEATABLE $numdom_hash{@{$x}[0]}."\t";
-			
+
 			if($match_num_doms==1) #ie if match is a single domain chain, no boundaries
 			{
 				print DOMSSEATABLE "-";
@@ -1103,7 +1103,7 @@ sub showdomssea
 				{
 
 					if(($cut_hash{@{$x}[0]}{$p}<40)||($cut_hash{@{$x}[0]}{$p}>($length-40)))
-					{	
+					{
 						print DOMSSEATABLE $cut_hash{@{$x}[0]}{$p};
 					}
 					else
@@ -1115,14 +1115,14 @@ sub showdomssea
 					    print DOMSSEATABLE ", ";
 					}
 				}
-				
+
 ###
 #	method to use consensus boundary prediction
 ###
 				#$use_con=1;
 				if(($use_con==1)&&($num_doms==2))
 					{
-					#needs length and numdoms and DomSSEA cuts	
+					#needs length and numdoms and DomSSEA cuts
 					$cut_DS=$cut_hash{@{$x}[0]}{$p};
 					#	&consensus;
 					#consensus returns $consensus_cut;
@@ -1132,7 +1132,7 @@ sub showdomssea
 						print "No consensus met, using DomSSEA prediction";
 						}
 					if(($consensus_cut<40)||($consensus_cut>($length-40))) #doesn't matter if cons or not
-						{	
+						{
 						#	print HTOUT " ? ";
 						}
 					else
@@ -1142,8 +1142,8 @@ sub showdomssea
 					}
 				#here need to also output consensus hit..
 				#print"$cut_hash{@{$x}[0]}{$p} kk"; #prints domain cut
-				}	
-			
+				}
+
                         # 15/06/2004 KB Added '0' domain suffix to scop code.
 			@carray=();
 			@carray=split(/,/,$db_code_hash{@{$x}[0].'0'});
@@ -1168,14 +1168,14 @@ sub showdomssea
 					#print NOUT "</FONT></TD></TR>\n";
 					$pair_of_codes=0;
 				}
-				
+
 			}
 			print DOMSSEATABLE "\n";
 		}
 ###
 #	more than one match for this score, ie this score seen more than once
 ###
-		else 
+		else
 		{
 			for($k=0;$k<=$length_array-1;$k++)
 			{
@@ -1195,7 +1195,7 @@ sub showdomssea
 					if($use_cons!=1)
 					{
 						if(($cut_hash{@{$x}[$k]}{$p}<40)||($cut_hash{@{$x}[$k]}{$p}>($length-40)))
-						{	
+						{
 						     print DOMSSEATABLE $cut_hash{@{$x}[0]}{$p}."";
 						}
 						else
@@ -1215,7 +1215,7 @@ sub showdomssea
 					#$use_con=1;	#if want to use, make == 1
 					if(($use_con==1)&&($num_doms==2)) #only for two dom predictions
 						{
-						#needs length and numdoms and DomSSEA cuts	
+						#needs length and numdoms and DomSSEA cuts
 						$cut_DS=$cut_hash{@{$x}[$k]}{$p};
 						#	consensus;	#consensus returns $consensus_cut;
 						#check cut region
@@ -1224,7 +1224,7 @@ sub showdomssea
 							print"No consensus met, using DomSSEA prediction";
 							}
 						if(($consensus_cut<40)||($consensus_cut>($length-40))) #doesn't matter if consensus or not
-							{	
+							{
 							#print HTOUT " ? ";
 							}
 						else
@@ -1245,30 +1245,30 @@ sub showdomssea
 					if($pair_of_codes==0)
 					{#print NOUT "<TR><TD><FONT FACE='helvetica' SIZE='-1'>\n";
 					}
-					
+
 					$pair_of_codes++;
 					print DOMSSEATABLE $caco;
-					
+
 					if(($pair_of_codes==1)&&($num_cat_codes>1))
 					{
 						print DOMSSEATABLE ", ";
 					}
-					
+
 					if($pair_of_codes==2)
 					{#print NOUT "</FONT></TD></TR>\n"; $pair_of_codes=0;
 					}
-					
+
 				}
 				}
 		}
 		@{$x}=();
-		}	
+		}
 	}	#end of sub showdomssea
 
 ###################################
 # Consensus Subroutine			###SORT THIS AS NOT REALLY SORTED IT...
-#	if input is consensus..  
-#	for each multi dom hit, 
+#	if input is consensus..
+#	for each multi dom hit,
 #	need to make consensus pred
 ###################################
 sub consensus
@@ -1286,7 +1286,7 @@ sub consensus
   	for(my $j=$i;$j<6;$j++)		#pairwise
   		{
   		if($i==$j){next;}				#not against themselves
-  		my $a=@cuts[$i];						
+  		my $a=@cuts[$i];
   		my $b=@cuts[$j];
   		my $diff=$a-$b; if($diff<0){$diff=$diff*(-1);}
   		if($diff<=10)
@@ -1295,7 +1295,7 @@ sub consensus
   			push @{$i}, $b;				#those grouped near this position
   			}
   		}
-  	} 
+  	}
 	my $element=100;
 	my $oldnum=0;
 	foreach my $y (sort keys %cnt)		#number grouped together
@@ -1328,7 +1328,7 @@ sub consensus
 	@{0}=@{1}=@{2}=@{3}=@{4}=@{5}=@{6}=@{7}=@{8}=();
 
 ###
-# DGS Subroutine											
+# DGS Subroutine
 ###
 	sub DGS
 		{
@@ -1361,7 +1361,7 @@ sub consensus
   	}
 	my $length5=(int ($length/5))*5;				#times 5
 	if((($length/5)-(int ($length/5)))>=0.5){$length5+=5;}#round up end cut length
-	for($i=0;$i<=600;$i+=20)	
+	for($i=0;$i<=600;$i+=20)
 		{
 		if(($length<($i+20))&&($length>=$i))
 			{
@@ -1375,7 +1375,7 @@ sub consensus
 			}
 		}
 	if($num_doms==2)		#DomSSEA says two dom
-		{	
+		{
 		my $ptot=0;
 		@twodom=();
 		$c=$pnd{2}{$pnds_length};															#prob of 2 doms for this length
@@ -1383,7 +1383,7 @@ sub consensus
 			{
 			push @twodom, $i;																		#add first dom length
 			push @twodom, ($length5-$i);												#add second dom length
-			push @twodom, (($pdom{$i})*($pdom{($length5-$i)}));	#add to array		
+			push @twodom, (($pdom{$i})*($pdom{($length5-$i)}));	#add to array
 			$ptot+=(($pdom{$i})*($pdom{($length5-$i)}));				#total prob
 			}
 		for($i=0;$i<=(scalar@twodom-3);$i+=3)		#itterate through and calc scores
@@ -1394,7 +1394,7 @@ sub consensus
 			if($seen{$score}==1){$score=$score+0.000001;}
 			$scorerec{$score}="2 @twodom[$i] @twodom[$i+1]";	#save score
 			$seen{$score}=1;
-			}	
+			}
 		undef %seen;
 		}
 	if($num_doms==3)		#DomSSEA says three+ dom
@@ -1425,9 +1425,9 @@ sub consensus
 			}
 		undef %seen;
 		}
-###	
+###
 # output stuff to consensus subroutine
-###	
+###
 	$top_ten=0;
 	foreach my $poss (sort {$b<=>$a} keys %scorerec)
 		{
@@ -1445,14 +1445,14 @@ sub consensus
 					{
 					$dgs_hash{$el_A}{1}=$1;
 					$dgs_hash{$el_A}{2}=$2;
-					}#a global dgs_cut hash?				
+					}#a global dgs_cut hash?
 				}
 			}
 			last; #got first prediction
 			}
 		}
 ###
-# Difference in length Subroutine					 
+# Difference in length Subroutine
 ###
 
 	sub DIL
@@ -1491,7 +1491,7 @@ sub consensus
 				{
 				$score=1-(($length-$lib_length)/$length);
 				}
-			#if($score==$score_hash{$lib_seq})		#if score is equal to one seen before 
+			#if($score==$score_hash{$lib_seq})		#if score is equal to one seen before
 			#	{																		#take last one for  moment
 			#	push @{$lib_seq},$el_B;							#add on to list of hits
 			#	}
@@ -1511,7 +1511,7 @@ sub consensus
 		#get cut data somehow from library.
 		}
 ###
-# equal division				
+# equal division
 ###
 	sub equal
 		{
@@ -1575,10 +1575,10 @@ sub rmrubbish
  }
 ###make files writeable executable by me
 system("chmod a+rwx $OUT_DIR/$input_seq*");
- 
+
 ###
 #	All the html output subroutines
-### 
+###
 sub printtoparsed
 	{
 	#print SEE "<PRE>\n";

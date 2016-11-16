@@ -16,9 +16,13 @@ Instalation
 Running a DomPRED job
 
 1) Run a psipred job and find the .horiz file
-2) Run DomSSEA
+2) Run blast vs the PfamA db to produce a blast output called .blastdom
+3) Run DomSSEA
 	java DomSSEA [path and prefix to .horiz] [All_cut3 path]
-	example where you have example.horiz: 
+	example where you have example.horiz:
 		java DomSSEA example /dompred/data/All_cut3
-3) Run parseDS.pl
+4) Run parseDS.pl
 	parseDS.pl
+
+TODO:
+parseDS_fixattempt.pl : resolve the hundreds of runtime errors one day...
