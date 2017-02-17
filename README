@@ -6,6 +6,7 @@ R.Marsden's work (parseDS.pl)
 
 Note that you need the data files available via:
 http://bioinfadmin.cs.ucl.ac.uk/downloads/dompred_data/
+Download the tarball and place the contents in the data/ directory
 
 Instalation
 1) tar -zxvf dompred_data.tar.gz
@@ -17,6 +18,7 @@ Running a DomPRED job
 
 1) Run a psipred job and find the .horiz file
 2) Run blast vs the PfamA db to produce a blast output called .blastdom
+   blastpgp -i  input_seq -j 5 -a 2 -m 0 -b 1000 -d pfamA  > out.blastdom"
 3) Run DomSSEA
 	java DomSSEA [path and prefix to .horiz] [All_cut3 path]
 	example where you have example.horiz:
