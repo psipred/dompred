@@ -1,7 +1,7 @@
 DomPred & DomSSEA are the work of Liam McGuffin and Russel Marsden
 
-This repo contains the DomSSEA components for parsing a psipred .horiz filex and outputting
-dompred domain boundary predictions. And the components for make a Dompred prediction as per
+This repo contains the DomSSEA components for parsing a psipred .horiz files and outputting
+dompred domain boundary predictions. With the components for make a Dompred prediction as per
 R.Marsden's work (parseDS.pl)
 
 Note that you need the data files available via:
