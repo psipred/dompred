@@ -1601,7 +1601,7 @@ sub graphpage
    		print BOUNDARYOUT "Putative domain boundaries located in PSI-BLAST alignment profile:\n";
 	}
 	print BOUNDARYOUT "Number of predicted domains by DPS: ".($num_peaks+1)."\n";
-	print BOUNDARYOUT "Domain Bounary locations predicted DPS: ";
+	print BOUNDARYOUT "Domain Boundary locations predicted DPS: ";
 	foreach $put_link (sort {$a<=>$b} @termini_preds)
 	{
 		print BOUNDARYOUT $put_link." ";
