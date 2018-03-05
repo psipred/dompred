@@ -1,7 +1,7 @@
 DomPred & DomSSEA are the work of Liam McGuffin and Russel Marsden
 
-This repo contains the DomSSEA components for parsing a psipred .horiz filex and outputting
-dompred domain boundary predictions. And the components for make a Dompred prediction as per
+This repo contains the DomSSEA components for parsing a psipred .horiz files and outputting
+dompred domain boundary predictions. With the components for make a Dompred prediction as per
 R.Marsden's work (parseDS.pl)
 
 Note that you need the data files available via:
@@ -9,22 +9,33 @@ http://bioinfadmin.cs.ucl.ac.uk/downloads/dompred_data/
 Download the tarball and place the contents in the data/ directory
 
 Instalation
+^^^^^^^^^^^
+
 1) tar -zxvf dompred_data.tar.gz
+
+	 Ensure everything ends up in a data/ directory inside the dompred directory
+	 this will contain all the underlying datafiles including an ancient version
+	 of pfamA. To my knowledge this pfamA file is not longer available at pfamA
+	 but dompred critically depends on this specific file and if you change it
+	 the predictions are worse.
+
 2) compile DomSSEA
 	cd src
 	javac DomSSEA.java
 
 Running a DomPRED job
-
+^^^^^^^^^^^^^^^^^^^^^
 1) Run a psipred job and find the .horiz file
-2) Run blast vs the PfamA db to produce a blast output called .blastdom
-   blastpgp -i  input_seq -j 5 -a 2 -m 0 -b 1000 -d pfamA  > out.blastdom"
+2) Run blast vs the PfamA in the data tarball to produce a blast output
+   called .blastdom
+   blastpgp -i  input_seq -j 5 -a 2 -m 0 -b 1000 -d pfamA  > example.blastdom"
 3) Run DomSSEA
 	java DomSSEA [path and prefix to .horiz] [All_cut3 path]
 	example where you have example.horiz:
 		java DomSSEA example /dompred/data/All_cut3
 4) Run parseDS.pl
-	parseDS.pl
+  Something like:
+	parseDS.pl example.domssea seqyes PfamA 0.01 5 domsseayes ppyes secproyes in /opt/Code/dompred/data/uniref90_PfamA /tmp/in /opt/Code/dompred/data/ /bin/gnuplot
 
 TODO:
 parseDS_fixattempt.pl : resolve the hundreds of runtime errors one day...
