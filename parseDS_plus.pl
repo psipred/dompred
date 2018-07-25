@@ -254,7 +254,7 @@ sub sequenceX
 ###
 #	read in blast out and parse it
 ###
-	print "opening"."$OUT_DIR/$input_seq.blastdom\n";
+	print "opening "."$OUT_DIR/$input_seq.blastdom\n";
 	open (INFIL, "$OUT_DIR/$input_seq.blastdom") or die "Cannot open $input_seq\n";
 	while ($line=<INFIL>)
 		{
