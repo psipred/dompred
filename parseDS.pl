@@ -813,7 +813,8 @@ sub pstogif {
 
   #system("$JPEGTRAN_EXEC -rot 90 $OUT_DIR/$myps.jpg > $OUT_DIR/$inputran.jpg");
     system(
-"mogrify -resize 540x700 -rotate 90 -crop 0x0 -quality 100 $OUT_DIR/$myps.png"
+        # "mogrify -resize 540x700 -rotate 90 -crop 0x0 -quality 100 $OUT_DIR/$myps.png"
+        "mogrify -resize 540x700 -crop 0x0 -quality 100 $OUT_DIR/$myps.png"
     );
 }    #-crop 6%
      #http://irl.eecs.umich.edu/jamin/pointers/gnuplot_quick.html
