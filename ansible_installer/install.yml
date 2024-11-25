@@ -1,0 +1,7 @@
+- name: Install dompred
+  hosts: all
+  roles:
+    - blast
+    - dompred
+  vars_files:
+   - ./config_vars.yml

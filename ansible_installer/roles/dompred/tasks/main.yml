@@ -1,0 +1,58 @@
+---
+
+  - name: "install gnuplot"
+    dnf:
+      pkg: gnuplot
+      state: latest
+    become_user: root
+    become_method: sudo
+    become: true
+
+  - name: Check if dompred is present
+    stat: path={{ app_location }}/dompred/parseDS.pl
+    register: dompred_exist
+
+  - name : Check Out dompred from git
+    when: dompred_exist.stat.exists == False
+    git:
+      repo: https://github.com/psipred/dompred.git
+      dest: "{{ app_location }}/dompred"
+      clone: yes
+      force: yes
+
+  - name: Download data files
+    when: dompred_exist.stat.exists == False
+    get_url:
+      url: http://bioinfadmin.cs.ucl.ac.uk/downloads/dompred_data/dompred_data.tar.gz
+      dest: "{{ app_location }}/dompred/"
+      timeout: 120
+    register: get_url_result
+
+  - name: untar dompred data
+    when: dompred_exist.stat.exists == False
+    unarchive:
+      src: "{{ app_location }}/dompred/dompred_data.tar.gz"
+      dest: "{{ app_location }}/dompred/"
+      remote_src: yes
+
+  - name: remove tar.gz
+    when: dompred_exist.stat.exists == False
+    ansible.builtin.file:
+      state: absent
+      path: "{{ app_location }}/dompred/dompred_data.tar.gz"
+
+  - name: compile DomSSEA
+    when: dompred_exist.stat.exists == False
+    shell: cd {{ app_location }}/dompred/src; javac DomSSEA.java
+
+  # - name: update blast location
+  #   ansible.builtin.lineinfile:
+  #     path:  "{{ app_location }}/dompred/"
+  #     regexp: "^my .ncbidir ="
+  #     line: "my $ncbidir = '{{ app_location}}/blast-2.2.26/bin';"
+
+  # - name: update blastdb location
+  #   ansible.builtin.lineinfile:
+  #     path:  "{{ app_location }}/dompred/"
+  #     regexp: "^my .dbname ="
+  #     line: "my $dbname = '{{ data_location }}/uniref/uniref50.fasta';"
